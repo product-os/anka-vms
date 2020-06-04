@@ -2,6 +2,7 @@
 
 set -ueix
 
+# TODO: Rename to catalina-base
 NAME=macOSCatalinaNodejs
 
 # For Catalina Anka VMs, –ram-size value should be 4G
@@ -41,11 +42,12 @@ run env CI=1 /bin/bash -c "$(curl -fsSL "$HOMEBREW_INSTALL_SCRIPT_URL")"
 # See https://github.com/KrauseFx/xcode-install
 run sudo gem install xcode-install
 
-# Set the right Apple Developer username/email & password
-# TODO: Create a Fastlane session for CI purposes, otherwise
-# we get the 2FA prompt.
+# Set the right Apple Developer session
 # See https://github.com/fastlane/fastlane/tree/master/spaceship#2-step-verification
-run env FASTLANE_USER=XXX FASTLANE_PASSWORD=XXX xcversion install 11
+run env \
+  XCODE_INSTALL_USER="$APPLE_DEVELOPER_USERNAME" \
+  XCODE_INSTALL_PASSWORD="$APPLE_DEVELOPER_PASSWORD" \
+  xcversion install 11
 
 #################################################
 # Base Dependencies
