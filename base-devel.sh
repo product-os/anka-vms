@@ -1,5 +1,12 @@
 #!/bin/sh
 
+if [ -z "$APPLE_DEVELOPER_USERNAME" || -z "$APPLE_DEVELOPER_PASSWORD" ]; then
+  echo "Please set the following environment variables to install Xcode:" 1>&2
+  echo "- APPLE_DEVELOPER_USERNAME" 1>&2
+  echo "- APPLE_DEVELOPER_PASSWORD" 1>&2
+  exit 1
+fi
+
 set -ueix
 
 # TODO: Rename to catalina-base
